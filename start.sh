@@ -18,6 +18,14 @@ cd ../pifuhd
 git fetch
 python -m apps.simple_test --use_rect -r 256 -i ./sample_images
 
-mv ./results/pifuhd_final/recon/*.obj ../previous_results/
+
+set -e
+cd ./results/pifuhd_final/recon/
+for file in $(ls | grep obj)
+do
+    mv "$file" ./../../../../previous_results/"$(date "+%F-%T")"_"$file"
+done
+cd ./../../..
+
 rm ./results/pifuhd_final/recon/*
 rm ./sample_images/*
