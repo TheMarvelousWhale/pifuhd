@@ -20,7 +20,10 @@ parser.add_argument("image_path")
 
 CONFIG = init_config()
 state_dict_path = './checkpoints/pifuhd.pt'
-cuda = 'cpu' #torch.device('cuda:%d' % opt.gpu_id if torch.cuda.is_available() else 'cpu')
+if CONFIG["use_gpu"] == 0:
+    cuda = 'cpu' #torch.device('cuda:%d' % opt.gpu_id if torch.cuda.is_available() else 'cpu')
+else:
+    cuda = torch.device('cuda:%d' % opt.gpu_id if torch.cuda.is_available() else 'cpu')
 state_dict = None
 
 if state_dict_path is not None and os.path.exists(state_dict_path):
